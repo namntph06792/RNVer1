@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-    TouchableOpacity,
-    Image,
-    View,
-    FlatList,
-    Text,
-    ActivityIndicator,
-} from 'react-native';
+import { TouchableOpacity, Image, View, FlatList, Text, ActivityIndicator } from 'react-native';
 import styles from '../src/styles';
 import { firebaseApp } from '../components/FirebaseConfig';
 import ListPostItem from './ListPostItem';
@@ -48,21 +41,7 @@ export default class ListPostScreen extends Component {
         });
     }
 
-    static navigationOptions = ({ navigate, navigation }) => ({
-        title: "Dashboard",
-        headerRight: (
-            <TouchableOpacity activeOpacity={0.5} onPress={() => {navigation.navigate("Post")}}>
-                <Image
-                    source={require('../assets/plus.png')}
-                    style={{ width: 30, height: 30,marginRight: 10 }}
-                />
-            </TouchableOpacity>
-        ),
-        // header: null
-    });
-
     render() {
-        const { navigate } = this.props.navigation;
         if (this.state.isLoading) {
             return (
                 <View style={styles.listpost_container}>

@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
-import {
-    View,
-    TouchableOpacity,
-    Image,
-    KeyboardAvoidingView,
-    TouchableWithoutFeedback, 
-    TextInput,
-    Keyboard,
-    Text,
-} from 'react-native';
+import { View, TouchableOpacity, Image, KeyboardAvoidingView, TouchableWithoutFeedback, TextInput, Keyboard, Text } from 'react-native';
 import styles from '../src/styles';
 import { firebaseApp } from '../components/FirebaseConfig';
+import FlashMessage from "react-native-flash-message";
 
 export default class PostScreen extends Component {
 
@@ -104,6 +96,7 @@ export default class PostScreen extends Component {
                         style={styles.post_container}
                         onPress={Keyboard.dismiss}>
                         <View style={styles.loginInfo}>
+                            <FlashMessage ref='post' position='center' duration={1000} hideOnPress={true} autoHide={true} animated={true} />
                             <TextInput
                                 style={styles.input}
                                 placeholder="Title"

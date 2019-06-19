@@ -3,12 +3,18 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 export default StyleSheet.create({
     //LoginScreen,RegisterScreen
+    scrollview: {
+        flex: 1,
+        flexDirection: "column",
+        backgroundColor: "rgb(32,53,78)",
+        justifyContent: "center",
+        paddingVertical: 20,
+    },
     container: {
         flex: 1,
         flexDirection: "column",
         backgroundColor: "rgb(32,53,78)",
         justifyContent: "center",
-        minHeight: 720,
     },
     header: {
         position: "absolute",

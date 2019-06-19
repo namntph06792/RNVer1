@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import {
-    Footer,
-    FooterTab,
-    Button,
-    Icon,
-    Text,
-    Badge
-} from "native-base";
+import { Footer,FooterTab,Button,Icon,Text,Badge } from "native-base";
 import UserHeader from "../components/UserHeader";
 
 export default class UserFooter extends Component {
-    
+
     render() {
         return (
             <Footer>
@@ -19,7 +12,7 @@ export default class UserFooter extends Component {
                         <Badge>
                             <Text>2</Text>
                         </Badge>
-                        <Icon name="apps"/>
+                        <Icon name="apps" />
                         <Text>Apps</Text>
                     </Button>
                     <Button vertical>

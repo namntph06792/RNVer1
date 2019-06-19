@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { FlatList, ActivityIndicator } from 'react-native';
 import { Content } from "native-base";
-import UserContentHeader from "../components/UserContentHeader";
 import UserContentItem from "../components/UserContentItem";
 import { firebaseApp } from '../components/FirebaseConfig';
 
 export default class UserContent extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             data: null,
@@ -16,9 +15,7 @@ export default class UserContent extends Component {
         thisState = this;
     }
 
-    componentDidMount() {
-        this.readPostData();
-    }
+    componentDidMount = () => { this.readPostData() }
 
     readPostData() {
         firebaseApp.database().ref('posts/').on('value', function (snapshot) {
@@ -40,47 +37,20 @@ export default class UserContent extends Component {
         });
     }
 
-    // componentDidMount(){
-    //     this.fetchJSON();
-    // }
-
-    // fetchJSON(){
-    //     fetch('http://www.tapetee.com/api.php?latest', {
-    //         method: 'GET',
-    //         headers: {
-    //             Accept: 'application/json',
-    //             'Content-Type': 'application/json',
-    //         }
-    //     })
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-
-    //             this.setState({
-    //                 isLoading: false,
-    //                 data: responseJson.HD_WALLPAPER
-    //             });
-    //             return responseJson.HD_WALLPAPER;
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });	
-    // }
-
     render() {
-        if(this.state.isLoading){
-            return(
+        if (this.state.isLoading) {
+            return (
                 <Content>
-                    <ActivityIndicator/>
+                    <ActivityIndicator size="large" />
                 </Content>
             );
         }
         return (
             <Content>
-                <UserContentHeader/>
                 <FlatList
                     data={this.state.data}
-                    renderItem={({item}) => <UserContentItem dat={item}/>}
-                    keyExtractor={(item,index) => item.id}
+                    renderItem={({ item }) => <UserContentItem dat={item} />}
+                    keyExtractor={(item, index) => item.id}
                 />
             </Content>
         );

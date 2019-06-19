@@ -1,23 +1,10 @@
 import React from "react";
-import {
-    ScrollView,
-    View,
-    Image,
-    Text,
-    SafeAreaView,
-    StatusBar,
-    TextInput,
-    KeyboardAvoidingView,
-    TouchableWithoutFeedback,
-    Keyboard,
-    TouchableOpacity,
-    Switch,
-} from "react-native";
+import { ScrollView, View, Image, Text, SafeAreaView, StatusBar, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TouchableOpacity, Switch } from "react-native";
 import { Icon } from 'native-base';
 import Logo from './Logo';
 import styles from '../src/styles';
 import { firebaseApp } from './FirebaseConfig';
-import FlashMessage from "react-native-flash-message"; ``
+import FlashMessage from "react-native-flash-message"; 
 
 export default class LoginScreen extends React.Component {
 
@@ -32,10 +19,6 @@ export default class LoginScreen extends React.Component {
             press: false
         }
     }
-    static navigationOptions = {
-        header: null,
-        headerTruncatedBackTitle: "Logout"
-    }
 
     login() {
         firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -44,26 +27,29 @@ export default class LoginScreen extends React.Component {
                     message: 'Success',
                     description: 'Login Successful, Welcome : ' + this.state.email,
                     type: 'success',
-                    onPress: () => this.userPermissions(this.state.email, this.state.password)
                 });
+                setTimeout(() => {
+                    this.userPermissions(this.state.email, this.state.password)
+                },2500);
+                
             })
             .catch(function (error) {
-
+                alert(error);
             });
     }
 
     userPermissions(e, p) {
-        if (e == 'itachi1611@gmail.com' && p == '123456') {
-            this.props.navigation.navigate("ListPost");
+        if (e === 'itachi1611@gmail.com' && p === '123456') {
+            this.props.navigation.navigate("ListPost")
         } else {
-            this.props.navigation.navigate("User");
+            this.props.navigation.navigate("User")
         }
     }
 
     validateLogin() {
-        // space = /^\s*$/;
-        // regE = /\w+@\w+(\.\w+){1,2}/;
-        // regP = /\w{5,}/;
+        space = /^\s*$/;
+        regE = /\w+@\w+(\.\w+){1,2}/;
+        regP = /\w{5,}/;
         // const { email, password } = this.state;
         // if (space.test(email)) {
         //     this.refs.login.showMessage({
@@ -98,7 +84,7 @@ export default class LoginScreen extends React.Component {
             this.setState({ showPassword: true, press: false })
         }
     }
-        
+
     toggleSwitch() {
         this.setState({
             switchValue: !this.state.switchValue,
@@ -109,7 +95,7 @@ export default class LoginScreen extends React.Component {
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <ScrollView horizontal={false}>
+            <ScrollView horizontal={false} contentContainerStyle={styles.scrollview}>
                 <SafeAreaView style={styles.container}>
                     <StatusBar barStyle="light-content" />
                     <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -124,8 +110,8 @@ export default class LoginScreen extends React.Component {
                                         source={require("../assets/welcome.png")}
                                     />
                                 </View>
-                                <Logo nav={this.props.navigation}/>
-                                <FlashMessage ref='login' position='top' hideOnPress={true} autoHide={false} animated={true} />
+                                {/* <Logo nav={this.props.navigation} /> */}
+                                <FlashMessage ref='login' position='top' duration={1000} hideOnPress={true} autoHide={true} animated={true} />
                                 <View style={styles.loginInfo}>
                                     <View style={styles.loginInfoSection}>
                                         <Image

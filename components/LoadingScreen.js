@@ -8,22 +8,39 @@ import firebase from 'firebase';
 
 export default class LoadingScreen extends Component{
 
-    static navigationOptions = {
-        header: null,
+    constructor(){
+        super();
+        this.unsubscriber = null;
+        this.state = {
+            user : null,
+        }
     }
 
     componentDidMount(){
-        this.checkIfLoggedIn();
+        this.unsubscriber = firebase.auth().onAuthStateChanged((user) => {
+            this.setState({user});
+        })
+        if(this.state.user){
+            if (this.state.user.email === 'itachi1611@gmail.com'){
+                setTimeout(() => {
+                    this.props.navigation.navigate('ListPost');
+                }, 1500)
+            } else {
+                setTimeout(() => {
+                    this.props.navigation.navigate('User');
+                }, 1500)
+            }
+        } else {
+            setTimeout(() => {
+                this.props.navigation.navigate('Login');
+            },1500)
+        }
     }
 
-    checkIfLoggedIn(){
-        firebase.auth().onAuthStateChanged(function(user){
-            if(user){
-                this.props.navigation.navigate('ListPost');
-            }else{
-                this.props.navigation.navigate('Login');
-            }
-        }.bind(this))
+    componentWillMount(){
+        if(this.unsubscriber){
+            this.unsubscriber();
+        }
     }
 
     render(){

@@ -4,11 +4,6 @@ import {Camera,Permissions} from 'expo';
 
 export default class SetCamera extends React.Component {
 
-
-    static navigationOptions = {
-        header: null,
-    }
-
     camera = null;
 
     state = {

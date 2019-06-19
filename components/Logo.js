@@ -1,20 +1,11 @@
 import React from "react";
-import {
-    View,
-    Image,
-    TouchableHighlight,
-} from "react-native";
-import SetCamera from '../components/SetCamera';
+import { View, Image, TouchableHighlight } from "react-native";
 
 export default class Logo extends React.Component {
 
-    renderCamera(){
-        return (<SetCamera/>);
-    }
-
-    render(){
+    render() {
         const { navigate } = this.props.nav;
-        return(
+        return (
             <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <TouchableHighlight
                     style={{
@@ -27,7 +18,7 @@ export default class Logo extends React.Component {
                         alignItems: "center"
                     }}
                     underlayColor="#ccc"
-                    onPress={() => {navigate("SetCamera")} 
+                    onPress={() => { navigate("SetCamera") }
                     }>
                     <Image source={require("../assets/avatar.png")} />
                 </TouchableHighlight>

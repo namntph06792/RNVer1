@@ -30,9 +30,6 @@ export default class RegisterScreen extends React.Component {
             press: false
         }
     }
-    static navigationOptions = {
-        header: null,
-    }
 
     register() {
         firebaseApp.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -102,7 +99,7 @@ export default class RegisterScreen extends React.Component {
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <ScrollView>
+            <ScrollView horizontal={false} contentContainerStyle={styles.scrollview}>
                 <SafeAreaView style={styles.container}>
                     <StatusBar barStyle="light-content" />
 
@@ -118,7 +115,7 @@ export default class RegisterScreen extends React.Component {
                                         source={require("../assets/welcome.png")}
                                     />
                                 </View>
-                                <Logo nav={this.props.navigation}/>
+                                <Logo nav={this.props.navigation} />
                                 <FlashMessage ref='register' position='top' hideOnPress={true} autoHide={false} animated={true} />
                                 <View style={styles.loginInfo}>
                                     <View style={styles.loginInfoSection}>

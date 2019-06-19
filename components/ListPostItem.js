@@ -1,22 +1,11 @@
 import React, { Component } from 'react';
-import {
-    TouchableHighlight,
-    KeyboardAvoidingView,
-    TouchableWithoutFeedback,
-    TextInput,
-    Keyboard,
-} from 'react-native';
-import Dialog, { DialogFooter, DialogButton,SlideAnimation,DialogTitle,DialogContent} from 'react-native-popup-dialog';
-import {
-    Card,
-    CardItem,
-    Text,
-    View,
-} from "native-base";
+import { TouchableHighlight, KeyboardAvoidingView, TouchableWithoutFeedback, TextInput, Keyboard, View } from 'react-native';
+import Dialog, { DialogFooter, DialogButton, SlideAnimation, DialogTitle, DialogContent } from 'react-native-popup-dialog';
+import { ListItem, Left, Thumbnail, Body, Text, Right, Button } from "native-base";
 import Swipeout from 'react-native-swipeout';
 import styles from '../src/styles';
 import { firebaseApp } from '../components/FirebaseConfig';
-import FlashMessage from "react-native-flash-message"; ``
+import FlashMessage from "react-native-flash-message";
 
 export default class ListPostItem extends Component {
 
@@ -32,7 +21,7 @@ export default class ListPostItem extends Component {
         }
     }
 
-    validatePost(){
+    validatePost() {
         space = /^\s*$/;
         regP = /\d+/;
         const { title, content, like, comment } = this.state;
@@ -93,8 +82,8 @@ export default class ListPostItem extends Component {
         firebaseApp.database().ref('posts/' + id).remove();
     }
 
-    async hidePopup(){
-        await this.setState({visible:false});
+    async hidePopup() {
+        await this.setState({ visible: false });
     }
 
     render() {
@@ -115,9 +104,10 @@ export default class ListPostItem extends Component {
                         content: this.props.dat.content,
                         like: this.props.dat.like,
                         comment: this.props.dat.comment,
-                        visible:true
-                    })},
-                style:{height:90}
+                        visible: true
+                    })
+                },
+                style: { height: 90 }
             },
             {
                 text: 'Delete',
@@ -128,103 +118,109 @@ export default class ListPostItem extends Component {
         ]
         return (
             <View>
-                <FlashMessage ref='login' position='top' hideOnPress={true} autoHide={false} animated={true} />
-                <Swipeout 
-                    right={swipeButtonOptions} 
-                    autoClose={true} 
+                <FlashMessage ref='post' position='center' hideOnPress={true} autoHide={true} duration={1000} animated={true} />
+                <Swipeout
+                    right={swipeButtonOptions}
+                    autoClose={true}
                     backgroundColor='transparent'
                     sensitivity={80}
                     buttonWidth={65}
-                    >
-                    <TouchableHighlight underlayColor='#8ED1FC' >
-                        <Card style={styles.post_item}>
-                            <CardItem cardBody>
+                >
+                    <TouchableHighlight underlayColor='#8ED1FC'>
+                        <ListItem thumbnail style={styles.post_item}>
+                            <Left>
+                                <Thumbnail square source={require('../assets/react-native.png')} />
+                            </Left>
+                            <Body>
                                 <Text>{this.props.dat.title}</Text>
-                            </CardItem>
-                            <CardItem cardBody>
                                 <Text note>{this.props.dat.content}</Text>
-                            </CardItem>
-                        </Card>
+                            </Body>
+                            <Right>
+                                <Button transparent>
+                                    <Text>View</Text>
+                                </Button>
+                            </Right>
+                        </ListItem>
                     </TouchableHighlight>
                 </Swipeout>
-                <Dialog
-                    height={300}
-                    visible={this.state.visible}
-                    onTouchOutside={() => {this.setState({visible:false});}}
-                    dialogTitle={<DialogTitle title='Edit post' />}
-                    dialogAnimation={slideAnimation}
-                    footer={
-                        <DialogFooter>
-                            <DialogButton
-                                text="CANCEL"
-                                bordered
-                                onPress={() => { this.hidePopup()}}
-                            />
-                            <DialogButton
-                                text="SAVE"
-                                bordered
-                                onPress={() => { this.validatePost()}}
-                            />
-                        </DialogFooter>
-                    }
+                    <Dialog
+                        height={380}
+                        visible={this.state.visible}
+                        onTouchOutside={() => { this.setState({ visible: false }); }}
+                        dialogTitle={<DialogTitle title='Edit post' />}
+                        dialogAnimation={slideAnimation}
+                        footer={
+                            <DialogFooter>
+                                <DialogButton
+                                    text="CANCEL"
+                                    bordered
+                                    onPress={() => { this.hidePopup() }}
+                                />
+                                <DialogButton
+                                    text="SAVE"
+                                    bordered
+                                    onPress={() => { this.validatePost() }}
+                                />
+                            </DialogFooter>
+                        }
                     >
-                    <DialogContent>
-                        <KeyboardAvoidingView behavior="padding" style={styles.edit_post_container}>
-                            <TouchableWithoutFeedback
-                                style={styles.edit_post_container}
-                                onPress={Keyboard.dismiss}>
-                                <View style={styles.loginInfo}>
-                                    <TextInput
-                                        style={styles.input}
-                                        placeholder="Title"
-                                        placeholderTextColor="#d9e3f0"
-                                        keyboardType="default"
-                                        returnKeyType="next"
-                                        autoCorrect={false}
-                                        onSubmitEditing={() => this.content.focus()}
-                                        onChangeText={(title) => this.setState({ title })}
-                                        value={this.state.title}
-                                    />
-                                    <TextInput
-                                        style={styles.input}
-                                        placeholder="Content"
-                                        placeholderTextColor="#d9e3f0"
-                                        keyboardType="default"
-                                        returnKeyType="next"
-                                        autoCorrect={false}
-                                        ref={input => (this.content = input)}
-                                        onSubmitEditing={() => this.like.focus()}
-                                        onChangeText={(content) => this.setState({ content })}
-                                        value={this.state.content}
-                                    />
-                                    <TextInput
-                                        style={styles.input}
-                                        placeholder="Like"
-                                        placeholderTextColor="#d9e3f0"
-                                        keyboardType="numbers-and-punctuation"
-                                        returnKeyType="next"
-                                        autoCorrect={false}
-                                        ref={input => (this.like = input)}
-                                        onSubmitEditing={() => this.comment.focus()}
-                                        onChangeText={(like) => this.setState({ like })}
-                                        value={this.state.like}
-                                    />
-                                    <TextInput
-                                        style={styles.input}
-                                        placeholder="Comment"
-                                        placeholderTextColor="#d9e3f0"
-                                        keyboardType="numbers-and-punctuation"
-                                        returnKeyType="go"
-                                        autoCorrect={false}
-                                        ref={input => (this.comment = input)}
-                                        onChangeText={(comment) => this.setState({ comment })}
-                                        value={this.state.comment}
-                                    />
-                                </View>
-                            </TouchableWithoutFeedback>
-                        </KeyboardAvoidingView>
-                    </DialogContent>
-                </Dialog>
+                        <DialogContent>
+                            <KeyboardAvoidingView behavior="padding" style={styles.edit_post_container}>
+                                <TouchableWithoutFeedback
+                                    style={styles.edit_post_container}
+                                    onPress={Keyboard.dismiss}>
+                                    <View style={styles.loginInfo}>
+                                        <TextInput
+                                            style={styles.input}
+                                            placeholder="Title"
+                                            placeholderTextColor="#d9e3f0"
+                                            keyboardType="default"
+                                            returnKeyType="next"
+                                            autoCorrect={false}
+                                            onSubmitEditing={() => this.content.focus()}
+                                            onChangeText={(title) => this.setState({ title })}
+                                            value={this.state.title}
+                                        />
+                                        <TextInput
+                                            style={styles.input}
+                                            placeholder="Content"
+                                            placeholderTextColor="#d9e3f0"
+                                            keyboardType="default"
+                                            returnKeyType="next"
+                                            autoCorrect={false}
+                                            ref={input => (this.content = input)}
+                                            onSubmitEditing={() => this.like.focus()}
+                                            onChangeText={(content) => this.setState({ content })}
+                                            value={this.state.content}
+                                        />
+                                        <TextInput
+                                            style={styles.input}
+                                            placeholder="Like"
+                                            placeholderTextColor="#d9e3f0"
+                                            keyboardType="numbers-and-punctuation"
+                                            returnKeyType="next"
+                                            autoCorrect={false}
+                                            ref={input => (this.like = input)}
+                                            onSubmitEditing={() => this.comment.focus()}
+                                            onChangeText={(like) => this.setState({ like })}
+                                            value={this.state.like}
+                                        />
+                                        <TextInput
+                                            style={styles.input}
+                                            placeholder="Comment"
+                                            placeholderTextColor="#d9e3f0"
+                                            keyboardType="numbers-and-punctuation"
+                                            returnKeyType="go"
+                                            autoCorrect={false}
+                                            ref={input => (this.comment = input)}
+                                            onChangeText={(comment) => this.setState({ comment })}
+                                            value={this.state.comment}
+                                        />
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            </KeyboardAvoidingView>
+                        </DialogContent>
+                    </Dialog>
             </View>
         );
     }
