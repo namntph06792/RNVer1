@@ -2,14 +2,57 @@ import React from "react";
 import { TouchableOpacity, Image, Button } from "react-native";
 import Splash from "./screens/Splash";
 import Login from "./screens/Login";
-import Feed from "./screens/Feed";
+import Home from "./screens/Home";
 import Register from "./screens/Register";
 import Admin from "./screens/Admin";
 import Post from "./screens/Post";
 import Camera from "./components/Capture";
+import Feed from "./fragments/Feed";
+import Profile from "./fragments/Profile";
+import Setting from "./fragments/Setting";
+import { Ionicons } from 'react-native-vector-icons';
 import firebase from 'firebase';
 
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+
+const HomeNavigator = createBottomTabNavigator(
+  {
+    Feed: {
+      screen: Feed
+    },
+    Profile: {
+      screen: Profile
+    },
+    Setting: {
+      screen: Setting
+    }
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state;
+        let IconComponent = Ionicons;
+        let iconName;
+        if (routeName === 'Feed') {
+          iconName = `ios-home`;
+          // Sometimes we want to add badges to some icons.
+          // You can check the implementation below.
+        } else if (routeName === 'Profile') {
+          iconName = 'ios-contact';
+        } else if (routeName === 'Setting') {
+          iconName = 'ios-menu';
+        }
+
+        // You can return any component that you like here!
+        return <IconComponent name={iconName} size={25} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'blue',
+      inactiveTintColor: 'gray',
+    },
+  }
+)
 
 const MainNavigator = createStackNavigator({
     Splash: {
@@ -36,8 +79,8 @@ const MainNavigator = createStackNavigator({
         header: null,
       }
     },
-    Feed: {
-      screen: Feed,
+    Home: {
+      screen: HomeNavigator,
       navigationOptions: ({ navigate, navigation }) => ({
         headerLeft: (
           <Button

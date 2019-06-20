@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from "native-base";
 import FContent from "../components/FContent";
-import FFooter from "../components/FFooter";
+// import FFooter from "../components/FFooter";
 import FHeader from '../components/FHeader';
 
 export default class Feed extends Component {
@@ -11,7 +11,7 @@ export default class Feed extends Component {
       <Container>
         <FHeader />
         <FContent />
-        <FFooter />
+        {/* <FFooter /> */}
       </Container>
     );
   }

@@ -40,7 +40,7 @@ export default class Login extends React.Component {
         if (e === 'itachi1611@gmail.com' && p === '123456') {
             this.props.navigation.navigate("Admin")
         } else {
-            this.props.navigation.navigate("Feed")
+            this.props.navigation.navigate("Home")
         }
     }
 
@@ -48,30 +48,30 @@ export default class Login extends React.Component {
         space = /^\s*$/;
         regE = /\w+@\w+(\.\w+){1,2}/;
         regP = /\w{5,}/;
-        const { email, password } = this.state;
-        if (space.test(email)) {
-            this.refs.login.showMessage({
-                message: 'Error',
-                description: 'Email can not be empty !',
-                type: 'warning',
-            });
-        } else if (!regE.test(email)) {
-            this.refs.login.showMessage({
-                message: 'Error',
-                description: 'Please fill the correct email format !',
-                type: 'warning',
-            });
-        } else if (space.test(password) || !regP.test(password)) {
-            this.refs.login.showMessage({
-                message: 'Error',
-                description: 'Password can not be empty and at least 5 characters !',
-                type: 'warning',
-            });
-        } else {
-            this.login();
-        }
-        //this.props.navigation.navigate("ListPost");
-        // this.props.navigation.navigate("User");
+        // const { email, password } = this.state;
+        // if (space.test(email)) {
+        //     this.refs.login.showMessage({
+        //         message: 'Error',
+        //         description: 'Email can not be empty !',
+        //         type: 'warning',
+        //     });
+        // } else if (!regE.test(email)) {
+        //     this.refs.login.showMessage({
+        //         message: 'Error',
+        //         description: 'Please fill the correct email format !',
+        //         type: 'warning',
+        //     });
+        // } else if (space.test(password) || !regP.test(password)) {
+        //     this.refs.login.showMessage({
+        //         message: 'Error',
+        //         description: 'Password can not be empty and at least 5 characters !',
+        //         type: 'warning',
+        //     });
+        // } else {
+        //     this.login();
+        // }
+        //this.props.navigation.navigate("Admin");
+        this.props.navigation.navigate("Home");
     }
 
     showPass = () => {
