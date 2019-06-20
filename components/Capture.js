@@ -2,7 +2,7 @@ import React from "react";
 import { View,Text,TouchableOpacity,Image } from 'react-native';
 import {Camera,Permissions} from 'expo';
 
-export default class SetCamera extends React.Component {
+export default class Capture extends React.Component {
 
     camera = null;
 

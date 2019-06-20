@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { FlatList, ActivityIndicator } from 'react-native';
 import { Content } from "native-base";
-import UserContentItem from "../components/UserContentItem";
-import { firebaseApp } from '../components/FirebaseConfig';
+import FContentItem from "../components/FContentItem";
+import { firebaseApp } from '../config/FirebaseConfig';
 
-export default class UserContent extends Component {
+export default class FContent extends Component {
 
     constructor(props) {
         super(props);
@@ -15,9 +15,10 @@ export default class UserContent extends Component {
         thisState = this;
     }
 
-    componentDidMount = () => { this.readPostData() }
+    componentDidMount = () => { this.loadDataFromFirebase() }
 
-    readPostData() {
+    //Firebase DAO
+    loadDataFromFirebase() {
         firebaseApp.database().ref('posts/').on('value', function (snapshot) {
             let array = [];
             snapshot.forEach(function (childSnapshot) {
@@ -49,7 +50,7 @@ export default class UserContent extends Component {
             <Content>
                 <FlatList
                     data={this.state.data}
-                    renderItem={({ item }) => <UserContentItem dat={item} />}
+                    renderItem={({ item }) => <FContentItem dat={item} />}
                     keyExtractor={(item, index) => item.id}
                 />
             </Content>

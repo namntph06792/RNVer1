@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { Left, Body, Right, Card, CardItem, Thumbnail, Button, Icon, Text } from "native-base";
 import styles from '../src/styles';
 
-export default class UserContentItem extends Component {
+export default class FContentItem extends Component {
 
     constructor(props) {
         super(props);

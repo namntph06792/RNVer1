@@ -1,12 +1,11 @@
 import React from "react";
 import { ScrollView, View, Image, Text, SafeAreaView, StatusBar, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TouchableOpacity, Switch } from "react-native";
 import { Icon } from 'native-base';
-import Logo from './Logo';
 import styles from '../src/styles';
-import { firebaseApp } from './FirebaseConfig';
+import { firebaseApp } from '../config/FirebaseConfig';
 import FlashMessage from "react-native-flash-message"; 
 
-export default class LoginScreen extends React.Component {
+export default class Login extends React.Component {
 
     constructor(props) {
         super(props);
@@ -31,7 +30,6 @@ export default class LoginScreen extends React.Component {
                 setTimeout(() => {
                     this.userPermissions(this.state.email, this.state.password)
                 },2500);
-                
             })
             .catch(function (error) {
                 alert(error);
@@ -40,9 +38,9 @@ export default class LoginScreen extends React.Component {
 
     userPermissions(e, p) {
         if (e === 'itachi1611@gmail.com' && p === '123456') {
-            this.props.navigation.navigate("ListPost")
+            this.props.navigation.navigate("Admin")
         } else {
-            this.props.navigation.navigate("User")
+            this.props.navigation.navigate("Feed")
         }
     }
 
@@ -50,29 +48,29 @@ export default class LoginScreen extends React.Component {
         space = /^\s*$/;
         regE = /\w+@\w+(\.\w+){1,2}/;
         regP = /\w{5,}/;
-        // const { email, password } = this.state;
-        // if (space.test(email)) {
-        //     this.refs.login.showMessage({
-        //         message: 'Error',
-        //         description: 'Email can not be empty !',
-        //         type: 'warning',
-        //     });
-        // } else if (!regE.test(email)) {
-        //     this.refs.login.showMessage({
-        //         message: 'Error',
-        //         description: 'Please fill the correct email format !',
-        //         type: 'warning',
-        //     });
-        // } else if (space.test(password) || !regP.test(password)) {
-        //     this.refs.login.showMessage({
-        //         message: 'Error',
-        //         description: 'Password can not be empty and at least 5 characters !',
-        //         type: 'warning',
-        //     });
-        // } else {
-        //     this.login();
-        // }
-        this.props.navigation.navigate("ListPost");
+        const { email, password } = this.state;
+        if (space.test(email)) {
+            this.refs.login.showMessage({
+                message: 'Error',
+                description: 'Email can not be empty !',
+                type: 'warning',
+            });
+        } else if (!regE.test(email)) {
+            this.refs.login.showMessage({
+                message: 'Error',
+                description: 'Please fill the correct email format !',
+                type: 'warning',
+            });
+        } else if (space.test(password) || !regP.test(password)) {
+            this.refs.login.showMessage({
+                message: 'Error',
+                description: 'Password can not be empty and at least 5 characters !',
+                type: 'warning',
+            });
+        } else {
+            this.login();
+        }
+        //this.props.navigation.navigate("ListPost");
         // this.props.navigation.navigate("User");
     }
 

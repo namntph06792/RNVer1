@@ -1,24 +1,12 @@
 import React from "react";
-import {
-    ScrollView,
-    View,
-    Image,
-    Text,
-    SafeAreaView,
-    StatusBar,
-    TextInput,
-    KeyboardAvoidingView,
-    TouchableWithoutFeedback,
-    Keyboard,
-    TouchableOpacity,
-} from "react-native";
+import { ScrollView, View, Image, Text, SafeAreaView, StatusBar, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from "react-native";
 import { Icon } from 'native-base';
-import Logo from './Logo';
+import Logo from '../components/Logo';
 import styles from '../src/styles';
-import { firebaseApp } from './FirebaseConfig';
+import { firebaseApp } from '../config/FirebaseConfig';
 import FlashMessage from "react-native-flash-message";
 
-export default class RegisterScreen extends React.Component {
+export default class Register extends React.Component {
 
     constructor(props) {
         super(props);
@@ -38,15 +26,14 @@ export default class RegisterScreen extends React.Component {
                     message: 'Success',
                     description: 'Register Successful : ' + this.state.email,
                     type: 'success',
-                    onPress: () => {
-                        this.props.navigation.navigate("Login")
-                    }
                 });
                 this.setState({
                     email: '',
                     password: '',
-
                 })
+                setTimeout(() => {
+                    this.props.navigation.navigate("Login")
+                }, 2500);
             })
             .catch(function (error) {
 
@@ -116,7 +103,7 @@ export default class RegisterScreen extends React.Component {
                                     />
                                 </View>
                                 <Logo nav={this.props.navigation} />
-                                <FlashMessage ref='register' position='top' hideOnPress={true} autoHide={false} animated={true} />
+                                <FlashMessage ref='register' position='top' duration={1000} hideOnPress={true} autoHide={true} animated={true} />
                                 <View style={styles.loginInfo}>
                                     <View style={styles.loginInfoSection}>
                                         <Image

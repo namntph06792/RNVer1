@@ -18,7 +18,7 @@ export default class Logo extends React.Component {
                         alignItems: "center"
                     }}
                     underlayColor="#ccc"
-                    onPress={() => { navigate("SetCamera") }
+                    onPress={() => { navigate("Capture") }
                     }>
                     <Image source={require("../assets/avatar.png")} />
                 </TouchableHighlight>

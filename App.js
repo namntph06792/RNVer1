@@ -1,43 +1,43 @@
 import React from "react";
 import { TouchableOpacity, Image, Button } from "react-native";
-import LoadingScreen from "./components/LoadingScreen";
-import LoginScreen from "./components/LoginScreen";
-import UserScreen from "./components/UserScreen";
-import RegisterScreen from "./components/RegisterScreen";
-import ListPostScreen from "./components/ListPostScreen";
-import PostScreen from "./components/PostScreen";
-import SetCamera from "./components/SetCamera";
+import Splash from "./screens/Splash";
+import Login from "./screens/Login";
+import Feed from "./screens/Feed";
+import Register from "./screens/Register";
+import Admin from "./screens/Admin";
+import Post from "./screens/Post";
+import Camera from "./components/Capture";
 import firebase from 'firebase';
 
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 const MainNavigator = createStackNavigator({
-    Loading: {
-      screen: LoadingScreen,
+    Splash: {
+      screen: Splash,
       navigationOptions: {
         header: null,
       }
     },
     Login: {
-      screen: LoginScreen,
+      screen: Login,
       navigationOptions: {
         header: null,
       }
     },
-    SetCamera: {
-      screen: SetCamera,
+    Capture: {
+      screen: Camera,
       navigationOptions: {
         header: null,
       }
     },
     Register: {
-      screen: RegisterScreen,
+      screen: Register,
       navigationOptions: {
         header: null,
       }
     },
-    User: {
-      screen: UserScreen,
+    Feed: {
+      screen: Feed,
       navigationOptions: ({ navigate, navigation }) => ({
         headerLeft: (
           <Button
@@ -65,8 +65,8 @@ const MainNavigator = createStackNavigator({
     //     header: null,
     //   }
     // },
-    ListPost: {
-      screen: ListPostScreen,
+    Admin: {
+      screen: Admin,
       navigationOptions: ({ navigate, navigation }) => ({
         headerLeft: (
           <Button
@@ -90,7 +90,7 @@ const MainNavigator = createStackNavigator({
       })
     },
     Post: {
-      screen: PostScreen,
+      screen: Post,
       navigationOptions: {
         title: 'New Post',
         headerRight: (

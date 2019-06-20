@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import {
-    View,
-    ActivityIndicator,
-} from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import styles from '../src/styles';
 import firebase from 'firebase';
 
-export default class LoadingScreen extends Component{
+export default class Splash extends Component{
 
     constructor(){
         super();

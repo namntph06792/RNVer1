@@ -4,10 +4,10 @@ import Dialog, { DialogFooter, DialogButton, SlideAnimation, DialogTitle, Dialog
 import { ListItem, Left, Thumbnail, Body, Text, Right, Button } from "native-base";
 import Swipeout from 'react-native-swipeout';
 import styles from '../src/styles';
-import { firebaseApp } from '../components/FirebaseConfig';
+import { firebaseApp } from '../config/FirebaseConfig';
 import FlashMessage from "react-native-flash-message";
 
-export default class ListPostItem extends Component {
+export default class PostItem extends Component {
 
     constructor(props) {
         super(props);
@@ -21,6 +21,36 @@ export default class ListPostItem extends Component {
         }
     }
 
+    //Firebase DAO
+    updateDataToFirebase() {
+        firebaseApp.database().ref('posts/' + this.state.id).set({
+            title: this.state.title,
+            content: this.state.content,
+            like: this.state.like,
+            comment: this.state.comment
+        }, function (error) {
+            if (error) {
+                // The write failed...
+                alert('Loi')
+            } else {
+                // Data saved successfully!
+                alert('Thanh cong!!!')
+            }
+        });
+        this.setState({
+            title: '',
+            content: '',
+            like: '',
+            comment: '',
+            visible: false,
+        });
+    }
+
+    deleteDataFromFirebase(id) {
+        firebaseApp.database().ref('posts/' + id).remove();
+    }
+
+    //Validate
     validatePost() {
         space = /^\s*$/;
         regP = /\d+/;
@@ -50,38 +80,11 @@ export default class ListPostItem extends Component {
                 type: 'warning',
             });
         } else {
-            this.updateData();
+            this.updateDataToFirebase();
         }
     }
 
-    updateData() {
-        firebaseApp.database().ref('posts/' + this.state.id).set({
-            title: this.state.title,
-            content: this.state.content,
-            like: this.state.like,
-            comment: this.state.comment
-        }, function (error) {
-            if (error) {
-                // The write failed...
-                alert('Loi')
-            } else {
-                // Data saved successfully!
-                alert('Thanh cong!!!')
-            }
-        });
-        this.setState({
-            title: '',
-            content: '',
-            like: '',
-            comment: '',
-            visible: false,
-        });
-    }
-
-    deleteData(id) {
-        firebaseApp.database().ref('posts/' + id).remove();
-    }
-
+    //Common
     async hidePopup() {
         await this.setState({ visible: false });
     }
@@ -113,7 +116,7 @@ export default class ListPostItem extends Component {
                 text: 'Delete',
                 backgroundColor: 'red',
                 underlayColor: '#8ED1FC',
-                onPress: () => { this.deleteData(this.props.dat.id) }
+                onPress: () => { this.deleteDataFromFirebase(this.props.dat.id) }
             }
         ]
         return (

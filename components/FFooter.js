@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Footer,FooterTab,Button,Icon,Text,Badge } from "native-base";
-import UserHeader from "../components/UserHeader";
 
-export default class UserFooter extends Component {
+export default class FFooter extends Component {
 
     render() {
         return (

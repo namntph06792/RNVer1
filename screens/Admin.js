@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image, View, FlatList, Text, ActivityIndicator } from 'react-native';
 import styles from '../src/styles';
-import { firebaseApp } from '../components/FirebaseConfig';
-import ListPostItem from './ListPostItem';
+import { firebaseApp } from '../config/FirebaseConfig';
+import PostItem from '../components/PostItem';
 
-export default class ListPostScreen extends Component {
+export default class Admin extends Component {
 
     constructor(props){
         super(props);
@@ -63,7 +63,7 @@ export default class ListPostScreen extends Component {
                 <FlatList
                     style={{flex:1}}
                     data={this.state.data}
-                    renderItem={({item}) => <ListPostItem dat={item}/>}
+                    renderItem={({item}) => <PostItem dat={item}/>}
                     keyExtractor={(item,index) => item.id}
                 />
             </View>

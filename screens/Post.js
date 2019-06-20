@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Image, KeyboardAvoidingView, TouchableWithoutFeedback, TextInput, Keyboard, Text } from 'react-native';
 import styles from '../src/styles';
-import { firebaseApp } from '../components/FirebaseConfig';
+import { firebaseApp } from '../config/FirebaseConfig';
 import FlashMessage from "react-native-flash-message";
 
-export default class PostScreen extends Component {
+export default class Post extends Component {
 
     constructor(props){
         super(props);
@@ -17,19 +17,34 @@ export default class PostScreen extends Component {
         }
     }
 
-    static navigationOptions = {
-        title: "New Post",
-        headerRight: (
-            <TouchableOpacity activeOpacity={0.5}>
-                <Image
-                    source={require('../assets/hamburger.png')}
-                    style={{ width: 25, height: 25 }}
-                />
-            </TouchableOpacity>
-        ),
-        // header: null
-    };
+    //Firebase DAO
+    saveToFirebase() {
+        firebaseApp.database().ref('posts/').push({
+            title: this.state.title,
+            content: this.state.content,
+            like: this.state.like,
+            comment: this.state.comment
+        }, function (error) {
+            if (error) {
+                // The write failed...
+                alert('Loi')
+            } else {
+                // Data saved successfully!
 
+                alert('Thanh cong!!!')
+                this.setState({
+                    title: '',
+                    content: '',
+                    like: '',
+                    comment: '',
+                });
+                this.props.navigation.navigate('Admin');
+            }
+        });
+        
+    }
+
+    //Validate
     validatePost() {
         space = /^\s*$/;
         regP = /\d+/;
@@ -61,30 +76,6 @@ export default class PostScreen extends Component {
         } else {
             this.saveToFirebase();
         }
-    }
-
-    saveToFirebase(){
-        firebaseApp.database().ref('posts/').push({
-            title: this.state.title,
-            content: this.state.content,
-            like: this.state.like,
-            comment: this.state.comment
-        }, function (error) {
-            if (error) {
-                // The write failed...
-                alert('Loi')
-            } else {
-                // Data saved successfully!
-                
-                alert('Thanh cong!!!')
-            }
-        });
-        this.setState({
-            title: '',
-            content: '',
-            like: '',
-            comment: '',
-        });
     }
 
     render() {
