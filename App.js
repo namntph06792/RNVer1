@@ -34,7 +34,7 @@ const HomeNavigator = createBottomTabNavigator(
         let IconComponent = Ionicons;
         let iconName;
         if (routeName === 'Feed') {
-          iconName = `ios-home`;
+          iconName = 'ios-home';
           // Sometimes we want to add badges to some icons.
           // You can check the implementation below.
         } else if (routeName === 'Profile') {

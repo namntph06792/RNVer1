@@ -32,16 +32,16 @@ export default class Post extends Component {
                 // Data saved successfully!
 
                 alert('Thanh cong!!!')
-                this.setState({
-                    title: '',
-                    content: '',
-                    like: '',
-                    comment: '',
-                });
+                
                 this.props.navigation.navigate('Admin');
             }
         });
-        
+        this.setState({
+            title: '',
+            content: '',
+            like: '',
+            comment: '',
+        });
     }
 
     //Validate

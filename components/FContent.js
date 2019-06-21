@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, ActivityIndicator } from 'react-native';
-import { Content } from "native-base";
+import { Container, Header, Item, Input, Icon, Button, Text, Content } from "native-base";
 import FContentItem from "../components/FContentItem";
 import { firebaseApp } from '../config/FirebaseConfig';
 
@@ -47,13 +47,25 @@ export default class FContent extends Component {
             );
         }
         return (
-            <Content>
-                <FlatList
-                    data={this.state.data}
-                    renderItem={({ item }) => <FContentItem dat={item} />}
-                    keyExtractor={(item, index) => item.id}
-                />
-            </Content>
+            <Container>
+                <Header searchBar rounded>
+                    <Item>
+                        <Icon name="ios-search" />
+                        <Input placeholder="Search" />
+                        <Icon name="ios-people" />
+                    </Item>
+                    <Button transparent>
+                        <Text>Search</Text>
+                    </Button>
+                </Header>
+                <Content>
+                    <FlatList
+                        data={this.state.data}
+                        renderItem={({ item }) => <FContentItem dat={item} />}
+                        keyExtractor={(item, index) => item.id}
+                    />
+                </Content>
+            </Container>
         );
     }
 }

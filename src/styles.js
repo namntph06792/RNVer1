@@ -171,4 +171,12 @@ export default StyleSheet.create({
     edit_post_container:{
         height: 250,
     },
+    //Fragment Photo
+    photo_content: {
+        flexDirection: 'row',
+    },
+    photo_item: {
+        width: '100%',
+        height: 250,
+    }
 });
